@@ -1,0 +1,1 @@
+# projeto setor de soldagem

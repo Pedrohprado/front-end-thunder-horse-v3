@@ -5,23 +5,32 @@ import { IoHomeOutline, IoHardwareChipOutline } from 'react-icons/io5';
 import { VscGraph } from 'react-icons/vsc';
 import { TbDeviceComputerCamera } from 'react-icons/tb';
 import { Link, useLocation } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { getAllDevices } from '../api/api';
 import { TypeDevices } from '../types/typedevices';
+import { GlobalContext } from '../globalcontext/globalcontext';
 
 const RightMenu = () => {
   const location = useLocation();
   const [isDevices, setDevices] = useState<null | TypeDevices[]>(null);
 
+  const { setId } = useContext(GlobalContext);
+
   useEffect(() => {
     async function fetchDatas() {
-      const devices = await getAllDevices();
+      const devices: TypeDevices[] = await getAllDevices();
       console.log(devices);
       setDevices(devices);
     }
 
     fetchDatas();
   }, []);
+
+  function handleChange(event: React.ChangeEvent<HTMLSelectElement>) {
+    const id = event.target.value;
+    console.log(id);
+    setId(id);
+  }
 
   const isActiveLink = (pathname: string) => {
     return pathname === location.pathname;
@@ -40,6 +49,7 @@ const RightMenu = () => {
             name=''
             id=''
             className=' p-2 border rounded overflow-hidden text-sm font-medium'
+            onChange={handleChange}
           >
             {isDevices.map((device: TypeDevices) => (
               <option key={device.id} value={device.id}>

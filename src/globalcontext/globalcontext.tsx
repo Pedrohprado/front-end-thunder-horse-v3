@@ -25,7 +25,6 @@ const Context: React.FC<{ children: ReactNode }> = ({ children }) => {
   useEffect(() => {
     async function getDatas() {
       if (isId) {
-        console.log('oi');
         const lastWeldBead = await getLastWeldBead(isId);
         setLastWeldBead(lastWeldBead);
       }

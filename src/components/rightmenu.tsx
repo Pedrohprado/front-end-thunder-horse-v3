@@ -9,12 +9,13 @@ import React, { useContext, useEffect, useState } from 'react';
 import { getAllDevices } from '../api/api';
 import { TypeDevices } from '../types/typedevices';
 import { GlobalContext } from '../globalcontext/globalcontext';
+import { TypeDevice } from '../types/TypeDevice';
 
 const RightMenu = () => {
   const location = useLocation();
   const [isDevices, setDevices] = useState<null | TypeDevices[]>(null);
 
-  const { setId } = useContext(GlobalContext);
+  const { setId, setPrometeusCode } = useContext(GlobalContext);
 
   useEffect(() => {
     async function fetchDatas() {
@@ -27,9 +28,12 @@ const RightMenu = () => {
   }, []);
 
   function handleChange(event: React.ChangeEvent<HTMLSelectElement>) {
-    const id = event.target.value;
-    console.log(id);
-    setId(id);
+    const value = event.target.value;
+    const selectedDevice = JSON.parse(value) as TypeDevice;
+    console.log(selectedDevice);
+    // console.log(id);
+    setPrometeusCode(selectedDevice.prometeusCode);
+    setId(selectedDevice.id);
   }
 
   const isActiveLink = (pathname: string) => {
@@ -39,9 +43,9 @@ const RightMenu = () => {
   return (
     <menu className=' fixed w-[20%] h-full py-4 px-4 flex flex-col items-center justify-between transition opacity-0 translate-x-[-100px] animate-animationleft'>
       <section className='flex flex-col gap-10 w-full'>
-        <div className='flex items-center gap-2 bg-black justify-center'>
+        <div className='flex items-center gap-2 justify-center'>
           <LiaHorseHeadSolid size={30} />
-          <h2 className=' text-lg font-bold'>Thunder Horse</h2>
+          <h2 className=' bg-black text-lg font-bold'>Thunder Horse</h2>
         </div>
 
         {isDevices && (
@@ -52,7 +56,7 @@ const RightMenu = () => {
             onChange={handleChange}
           >
             {isDevices.map((device: TypeDevices) => (
-              <option key={device.id} value={device.id}>
+              <option key={device.id} value={JSON.stringify(device)}>
                 {device.prometeusCode}
               </option>
             ))}

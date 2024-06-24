@@ -3,6 +3,7 @@ import './App.css';
 import Home from './page/home';
 import RightMenu from './components/rightmenu';
 import Context from './globalcontext/globalcontext';
+import Devices from './page/devices';
 
 function App() {
   return (
@@ -12,7 +13,7 @@ function App() {
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/ciclodeservico' />
-          <Route path='/dispositivos' />
+          <Route path='/dispositivos' element={<Devices />} />
           <Route path='/monitoramento' />
         </Routes>
       </BrowserRouter>

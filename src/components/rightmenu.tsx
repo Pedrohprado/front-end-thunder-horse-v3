@@ -7,19 +7,18 @@ import { TbDeviceComputerCamera } from 'react-icons/tb';
 import { Link, useLocation } from 'react-router-dom';
 import React, { useContext, useEffect, useState } from 'react';
 import { getAllDevices } from '../api/api';
-import { TypeDevices } from '../types/typedevices';
 import { GlobalContext } from '../globalcontext/globalcontext';
 import { TypeDevice } from '../types/TypeDevice';
 
 const RightMenu = () => {
   const location = useLocation();
-  const [isDevices, setDevices] = useState<null | TypeDevices[]>(null);
+  const [isDevices, setDevices] = useState<null | TypeDevice[]>(null);
 
   const { setId, setPrometeusCode } = useContext(GlobalContext);
 
   useEffect(() => {
     async function fetchDatas() {
-      const devices: TypeDevices[] = await getAllDevices();
+      const devices: TypeDevice[] = await getAllDevices();
       console.log(devices);
       setDevices(devices);
     }
@@ -55,8 +54,15 @@ const RightMenu = () => {
             className=' p-2 border rounded overflow-hidden text-sm font-medium'
             onChange={handleChange}
           >
-            {isDevices.map((device: TypeDevices) => (
-              <option key={device.id} value={JSON.stringify(device)}>
+            {isDevices.map((device: TypeDevice) => (
+              <option
+                key={device.id}
+                value={JSON.stringify(device)}
+                disabled={
+                  device.prometeusCode === 'prometeus04' ||
+                  device.prometeusCode === 'prometeus05'
+                }
+              >
                 {device.prometeusCode}
               </option>
             ))}

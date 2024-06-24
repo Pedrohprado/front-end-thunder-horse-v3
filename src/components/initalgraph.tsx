@@ -21,12 +21,11 @@ const InitialGraph = () => {
     <section className=' w-2/3 bg-slate-50 h-full rounded border flex flex-col justify-center gap-2 items-center p-2'>
       {isLastWeldBead && isDate ? (
         <>
-          <p className=' font-medium'>
+          <p className=' font-bold'>
             Ultimo cordão de solda - {isPrometeusCode}
           </p>
 
           <AreaChart data={isLastWeldBead} width={600} height={200}>
-            {/* <CartesianGrid strokeDasharray='3 3' /> */}
             <YAxis />
             <XAxis AxisComp={isDate} />
             <Tooltip />
@@ -34,15 +33,12 @@ const InitialGraph = () => {
               type='natural'
               dataKey={'amperagem'}
               stroke='#001e4b'
-              fill='#001e4b'
+              fill='#001e4b9f'
             />
           </AreaChart>
         </>
       ) : (
-        <p>
-          Sem arco de solda no momento, selecione qual dispositivo deseja
-          analisar
-        </p>
+        <p>Selecione o dispositivo</p>
       )}
     </section>
   );

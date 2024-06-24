@@ -32,6 +32,7 @@ const Context: React.FC<{ children: ReactNode }> = ({ children }) => {
       if (isId) {
         const lastWeldBead = await getLastWeldBead(isId);
         console.log(lastWeldBead);
+
         setLastWeldBead(lastWeldBead);
       }
     }
@@ -39,6 +40,14 @@ const Context: React.FC<{ children: ReactNode }> = ({ children }) => {
     if (isId) {
       getDatas();
     }
+
+    const time = setInterval(() => {
+      getDatas();
+    }, 5000);
+
+    return () => {
+      clearInterval(time);
+    };
   }, [isId]);
 
   return (

@@ -9,4 +9,6 @@ export interface TypeDevice {
   soldador: string;
   vazaoDoGas: string;
   velocidadeArame: string;
+  localizationRow: number;
+  localizationCol: number;
 }

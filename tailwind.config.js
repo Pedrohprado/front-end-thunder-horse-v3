@@ -3,6 +3,12 @@ export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
+      gridTemplateColumns: {
+        30: 'repeat(30, minmax(0,1fr))',
+      },
+      gridTemplateRows: {
+        20: 'repeat(18, minmax(0,1fr))',
+      },
       fontFamily: {
         manrope: ['Manrope', 'sans-serif'],
       },

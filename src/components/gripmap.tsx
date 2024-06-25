@@ -1,13 +1,15 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { getAllDevices } from '../api/api';
 import { TypeDevice } from '../types/TypeDevice';
 import { IoLocationSharp } from 'react-icons/io5';
+import { GlobalContext } from '../globalcontext/globalcontext';
 
 interface TypeLocalization {
   row: number;
   col: number;
   prometeus: string;
   setor: number;
+  status: string;
 }
 const GridMap = () => {
   const [isLocalization, setLocalization] = useState<TypeLocalization[] | []>(
@@ -15,6 +17,8 @@ const GridMap = () => {
   );
   const [hoveredLocalization, setHoveredLocalization] =
     useState<TypeLocalization | null>(null);
+
+  const { isStatusPrometeusGlobal } = useContext(GlobalContext);
 
   useEffect(() => {
     async function getDatas() {
@@ -24,13 +28,24 @@ const GridMap = () => {
         setor: item.setor,
         col: item.localizationCol,
         row: item.localizationRow,
+        status: 'parado',
       }));
+
+      if (isStatusPrometeusGlobal) {
+        localization.forEach((loc) => {
+          const foundStatus = isStatusPrometeusGlobal.find(
+            (s) => s.prometeus === loc.prometeus
+          );
+          if (foundStatus) loc.status = foundStatus.status;
+        });
+      }
+
       setLocalization(localization);
       console.log(localization);
     }
 
     getDatas();
-  }, []);
+  }, [isStatusPrometeusGlobal]);
 
   const gridSize = 23;
   const cells = [];
@@ -57,12 +72,16 @@ const GridMap = () => {
           {isLocalized ? (
             <>
               <IoLocationSharp
-                className=' absolute bottom-2 right-1 text-red-700 hover:text-red-400'
+                className={`absolute bottom-2 right-1 hover:animate-none ${
+                  isLocalized.status === 'funcionando'
+                    ? 'text-green-800 hover:text-green-400 animate-bounce'
+                    : 'text-red-700 hover:text-red-400'
+                }`}
                 size={25}
               />
               {hoveredLocalization === isLocalized && (
-                <div className='  absolute  bg-white p-2 rounded-lg shadow-md border border-gray-200 bottom-9 left-0'>
-                  <p>{hoveredLocalization.prometeus}</p>
+                <div className=' flex flex-col items-start absolute bg-white p-2 rounded-lg shadow-md border border-gray-200 bottom-9 left-0'>
+                  <p className=' font-bold'>{hoveredLocalization.prometeus}</p>
                   <p>Setor: {hoveredLocalization.setor}</p>
                   <p>Coluna: {hoveredLocalization.col}</p>
                   <p>Linha: {hoveredLocalization.row}</p>
@@ -70,16 +89,15 @@ const GridMap = () => {
               )}
             </>
           ) : (
-            // <p className=' text-xs'>{cellKey}</p>
             '.'
           )}
         </button>
       );
     }
   }
-  //aumentar no numero de colunassss
+
   return (
-    <section className=' grid grid-cols-30 grid-rows-20 gap-1 relative'>
+    <section className=' grid grid-cols-30 grid-rows-20 gap-1 relative opacity-0 translate-x-[20px] animate-animationleft border rounded bg-slate-50'>
       <img
         src='/planta-empresa.png'
         alt='planta baixa'

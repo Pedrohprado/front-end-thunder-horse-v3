@@ -1,5 +1,6 @@
 import InitialGraph from '../components/initalgraph';
 import StatusDevices from '../components/statusdevices';
+import TableLastOperations from '../components/tablelastoperations';
 
 const Home = () => {
   return (
@@ -9,10 +10,7 @@ const Home = () => {
           <InitialGraph />
           <StatusDevices otherpage={false} />
         </div>
-
-        <section className=' w-full flex items-center justify-between bg-slate-200 h-1/2'>
-          ultimas operações
-        </section>
+        <TableLastOperations />
       </section>
     </main>
   );

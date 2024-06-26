@@ -1,3 +1,5 @@
+export const url = import.meta.env.VITE_BASE_URL_URL_API;
+
 export async function getAllDevices() {
   const url: string = import.meta.env.VITE_BASE_URL_URL_API;
   const response = await fetch(`${url}/allprocess`);

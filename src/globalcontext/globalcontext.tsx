@@ -6,6 +6,7 @@ import { TypeStatusPrometeus } from '../types/TypePrometeusStatus';
 interface TypeGlobalContext {
   setId: (isId: string | null) => void;
   isPrometeusCode: string | null;
+  isId: string | null;
   isStatusPrometeusGlobal: TypeStatusPrometeus[] | null;
   setStatusPrometeusGlobal: (
     isStatusPrometeusGlobal: TypeStatusPrometeus[] | null
@@ -17,6 +18,7 @@ interface TypeGlobalContext {
 
 const initialContext: TypeGlobalContext = {
   setId: () => {},
+  isId: null,
   isLastWeldBead: null,
   isPrometeusCode: null,
   isStatusPrometeusGlobal: null,
@@ -84,6 +86,7 @@ const Context: React.FC<{ children: ReactNode }> = ({ children }) => {
   return (
     <GlobalContext.Provider
       value={{
+        isId,
         isStatusPrometeusGlobal,
         setStatusPrometeusGlobal,
         setId,

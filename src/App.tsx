@@ -4,6 +4,7 @@ import Home from './page/home';
 import RightMenu from './components/rightmenu';
 import Context from './globalcontext/globalcontext';
 import Devices from './page/devices';
+import CiclyOfService from './page/ciclyofservices';
 
 function App() {
   return (
@@ -12,7 +13,7 @@ function App() {
         <RightMenu />
         <Routes>
           <Route path='/' element={<Home />} />
-          <Route path='/ciclodeservico' />
+          <Route path='/ciclodeservico' element={<CiclyOfService />} />
           <Route path='/dispositivos' element={<Devices />} />
           <Route path='/monitoramento' />
         </Routes>

@@ -27,7 +27,7 @@ const InitialGraph = () => {
 
           <AreaChart data={isLastWeldBead} width={600} height={200}>
             <YAxis />
-            <XAxis AxisComp={isDate} />
+            <XAxis dataKey='data' />
             <Tooltip />
             <Area
               type='natural'

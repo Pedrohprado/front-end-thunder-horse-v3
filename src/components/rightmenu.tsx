@@ -44,7 +44,7 @@ const RightMenu = () => {
       <section className='flex flex-col gap-10 w-full'>
         <div className='flex items-center gap-2 justify-center'>
           <LiaHorseHeadSolid size={30} />
-          <h2 className=' text-lg font-bold'>Thunder Horse</h2>
+          <h2 className=' text-lg font-bold'>.</h2>
         </div>
 
         {isDevices && (

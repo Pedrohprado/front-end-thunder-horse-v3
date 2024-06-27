@@ -13,6 +13,7 @@ const CiclyOfService = () => {
     undefined
   );
   const [isDaysCycle, setDaysCycle] = useState<null | TypeDayCycle[]>(null);
+  //get all informations for second array in []
   const [isAllCycle, setAllCycle] = useState<null | TypeAllCycle[]>(null);
 
   const { isId } = useContext(GlobalContext);

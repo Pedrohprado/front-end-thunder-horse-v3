@@ -12,3 +12,8 @@ export interface TypeDevice {
   localizationRow: number;
   localizationCol: number;
 }
+
+export interface TypeResumeDevice {
+  prometeusCode: string;
+  id: string;
+}

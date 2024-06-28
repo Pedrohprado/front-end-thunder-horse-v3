@@ -19,7 +19,6 @@ const RightMenu = () => {
   useEffect(() => {
     async function fetchDatas() {
       const devices: TypeDevice[] = await getAllDevices();
-      console.log(devices);
       setDevices(devices);
     }
 
@@ -30,7 +29,6 @@ const RightMenu = () => {
     const value = event.target.value;
     const selectedDevice = JSON.parse(value) as TypeDevice;
     console.log(selectedDevice);
-    // console.log(id);
     setPrometeusCode(selectedDevice.prometeusCode);
     setId(selectedDevice.id);
   }

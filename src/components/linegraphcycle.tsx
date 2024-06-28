@@ -79,7 +79,7 @@ const LineGraphCycle = ({ isDaysCycle }: Props) => {
       </div>
 
       <h2 className=' font-bold mb-2 mt-5'>
-        Porcentagem diária - tempo parado x tempo trabalhando
+        Porcentagem diária - tempo parado x tempo trabalhando - (8h: 56min)
       </h2>
       <div className=' w-full bg-slate-50 rounded border flex flex-col justify-center p-4 '>
         <LineChart data={isDaysCycle} width={970} height={200}>
@@ -87,11 +87,27 @@ const LineGraphCycle = ({ isDaysCycle }: Props) => {
           <XAxis dataKey='data' />
           <Tooltip />
           <Line
-            type='natural'
+            type='bump'
             dataKey={'porcentagemTrabalhando'}
             stroke='#0c7418'
           />
-          <Line type='natural' dataKey={'porcentagemParado'} stroke='#6b1111' />
+
+          <Line type='bump' dataKey={'porcentagemParado'} stroke='#6b1111' />
+        </LineChart>
+      </div>
+      <h2 className=' font-bold mb-2 mt-5'>
+        Porcentagem diária - capacidade efetiva - (7h: 56min)
+      </h2>
+      <div className=' w-full bg-slate-50 rounded border flex flex-col justify-center p-4 '>
+        <LineChart data={isDaysCycle} width={970} height={200}>
+          <YAxis />
+          <XAxis dataKey='data' />
+          <Tooltip />
+          <Line
+            type='linear'
+            dataKey={'porcentagemCapacidadeEfetiva'}
+            stroke='#0e0c74'
+          />
         </LineChart>
       </div>
     </section>

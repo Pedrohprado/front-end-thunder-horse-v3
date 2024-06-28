@@ -43,15 +43,26 @@ const CiclyOfService = () => {
 
   useEffect(() => {
     async function getFullCicly(from: string, to: string) {
-      console.log(`${url}/servicecycle/${isId}/${from}/${to}`);
-      const response = await fetch(`${url}/servicecycle/${isId}/${from}/${to}`);
-      const data: {
-        0: TypeDayCycle[];
-        1: TypeAllCycle[];
-      } = await response.json();
-      setDaysCycle(data[0].reverse());
-      setAllCycle(data[1]);
-      console.log(data);
+      if (isAllIdDevices && isSelectDevices) {
+        const teste = isSelectDevices.map((id) => {
+          console.log(id + '/');
+        });
+        // console.log(
+        //   `${url}/servicecycle/${isSelectDevices.map((id) => id)}${from}/${to}`
+        // );
+        const response = await fetch(
+          `${url}/servicecycle/${isAllIdDevices.map((id) =>
+            (id + '/').replace(',', '')
+          )}${from}/${to}`
+        );
+        const data: {
+          0: TypeDayCycle[];
+          1: TypeAllCycle[];
+        } = await response.json();
+        setDaysCycle(data[0].reverse());
+        setAllCycle(data[1]);
+        console.log(data);
+      }
     }
 
     if (selectedRange && selectedRange.from && selectedRange.to) {

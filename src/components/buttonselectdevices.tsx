@@ -1,17 +1,18 @@
-import { useEffect, useState } from 'react';
 import { TypeResumeDevice } from '../types/TypeDevice';
 
 const ButtonSelectDevices = ({
   isAllIdDevices,
   isSelectDevices,
   setSelectDevices,
+  isListOfPrometeus,
+  setListOfPrometeus,
 }: {
+  isListOfPrometeus: boolean;
+  setListOfPrometeus: (isListOfPrometeus: boolean) => void;
   isAllIdDevices: TypeResumeDevice[];
   isSelectDevices: string[] | null;
   setSelectDevices: (isSelectDevices: string[]) => void;
 }) => {
-  const [isListOfPrometeus, setListOfPrometeus] = useState<boolean>(false);
-
   const handleCheckBoxChange = (deviceId: string) => {
     if (isSelectDevices) {
       if (isSelectDevices.includes(deviceId)) {
@@ -23,10 +24,6 @@ const ButtonSelectDevices = ({
       setSelectDevices([deviceId]);
     }
   };
-
-  useEffect(() => {
-    console.log(isSelectDevices);
-  }, [isSelectDevices]);
 
   return (
     <>

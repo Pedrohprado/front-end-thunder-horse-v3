@@ -1,28 +1,25 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { DateRange } from 'react-day-picker';
 import { IoCalendarClearOutline } from 'react-icons/io5';
 import Calendar from '../components/calendar';
 import { getAllDevices, url } from '../api/api';
-import { GlobalContext } from '../globalcontext/globalcontext';
-import { TypeAllCycle, TypeDayCycle } from '../types/TypeCycle';
+import { TypeDevicesCycle } from '../types/TypeCycle';
 import LineGraphCycle from '../components/linegraphcycle';
 import BlocsAllCycle from '../components/blocsallcycle';
 import { TypeDevice, TypeResumeDevice } from '../types/TypeDevice';
 import ButtonSelectDevices from '../components/buttonselectdevices';
 
 const CiclyOfService = () => {
+  const [isListOfPrometeus, setListOfPrometeus] = useState<boolean>(false);
   const [isButton, setButton] = useState<boolean>(false);
   const [selectedRange, setSelectedRange] = useState<DateRange | undefined>(
     undefined
   );
   const [isSelectDevices, setSelectDevices] = useState<null | string[]>(null);
-  const [isDaysCycle, setDaysCycle] = useState<null | TypeDayCycle[]>(null);
-  const [isAllCycle, setAllCycle] = useState<null | TypeAllCycle[]>(null);
+  const [isDaysCycle, setDaysCycle] = useState<null | TypeDevicesCycle[]>(null);
   const [isAllIdDevices, setAllIdDevices] = useState<[] | TypeResumeDevice[]>(
     []
   );
-
-  const { isId } = useContext(GlobalContext);
 
   useEffect(() => {
     async function fetchDatas() {
@@ -34,7 +31,6 @@ const CiclyOfService = () => {
           prometeusCode: item.prometeusCode,
         })
       );
-      console.log(arr);
       setAllIdDevices(arr);
     }
 
@@ -43,41 +39,36 @@ const CiclyOfService = () => {
 
   useEffect(() => {
     async function getFullCicly(from: string, to: string) {
-      if (isAllIdDevices && isSelectDevices) {
-        const teste = isSelectDevices.map((id) => {
-          console.log(id + '/');
-        });
-        // console.log(
-        //   `${url}/servicecycle/${isSelectDevices.map((id) => id)}${from}/${to}`
-        // );
+      if (isSelectDevices) {
+        const result: string = isSelectDevices.join(',');
+        console.log(`${url}/servicecycle/${result}/${from}/${to}`);
         const response = await fetch(
-          `${url}/servicecycle/${isAllIdDevices.map((id) =>
-            (id + '/').replace(',', '')
-          )}${from}/${to}`
+          `${url}/servicecycle/${result}/${from}/${to}`
         );
-        const data: {
-          0: TypeDayCycle[];
-          1: TypeAllCycle[];
-        } = await response.json();
-        setDaysCycle(data[0].reverse());
-        setAllCycle(data[1]);
+
+        const data: TypeDevicesCycle[] = await response.json();
+        setDaysCycle(data);
+
         console.log(data);
       }
     }
 
     if (selectedRange && selectedRange.from && selectedRange.to) {
       setButton(false);
+      setListOfPrometeus(false);
 
       const from = selectedRange.from.toISOString().slice(0, 10);
       const to = selectedRange.to.toISOString().slice(0, 10);
       getFullCicly(from, to);
     }
-  }, [selectedRange, isId]);
+  }, [selectedRange, isSelectDevices]);
 
   return (
     <main className=' w-full pl-[20%]'>
       <section className=' w-full  h-screen flex flex-col px-8 py-4 gap-2'>
         <ButtonSelectDevices
+          isListOfPrometeus={isListOfPrometeus}
+          setListOfPrometeus={setListOfPrometeus}
           isAllIdDevices={isAllIdDevices}
           isSelectDevices={isSelectDevices}
           setSelectDevices={setSelectDevices}
@@ -105,8 +96,8 @@ const CiclyOfService = () => {
           />
         ) : null}
         {isDaysCycle ? <LineGraphCycle isDaysCycle={isDaysCycle} /> : 'testes'}
-        {isAllCycle ? (
-          <BlocsAllCycle isAllCycle={isAllCycle} />
+        {isDaysCycle ? (
+          <BlocsAllCycle isAllCycle={isDaysCycle} />
         ) : (
           'sem informações'
         )}

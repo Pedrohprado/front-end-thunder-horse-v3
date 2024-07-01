@@ -20,6 +20,7 @@ import {
   MdOutlineKeyboardArrowDown,
   MdOutlineKeyboardArrowRight,
 } from 'react-icons/md';
+import LevelForEffetiveCapacity from './levelforeffectivecapacity';
 
 interface Props {
   isDaysCycle: TypeDevicesCycle[];
@@ -150,10 +151,12 @@ const LineGraphCycle = ({ isDaysCycle }: Props) => {
                         </span>
                       </p>
                     </div>
-                    <p className=' flex flex-col items-center gap-1 justify-center'>
+                    <div className=' flex flex-col items-center gap-1 justify-center'>
                       Capacidade efetiva
-                      <span>{item.porcentagemCapacidadeEfetiva} %</span>
-                    </p>
+                      <LevelForEffetiveCapacity
+                        capacity={item.porcentagemCapacidadeEfetiva}
+                      />
+                    </div>
 
                     <button
                       className=' bg-slate-400 p-1 font-bold w-full text-sm rounded'

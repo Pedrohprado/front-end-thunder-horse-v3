@@ -1,4 +1,5 @@
 import { TypeDevicesCycle } from '../types/TypeCycle';
+import LevelForEffetiveCapacity from './levelforeffectivecapacity';
 
 const BlocsAllCycle = ({ isAllCycle }: { isAllCycle: TypeDevicesCycle[] }) => {
   return (
@@ -21,7 +22,9 @@ const BlocsAllCycle = ({ isAllCycle }: { isAllCycle: TypeDevicesCycle[] }) => {
                   className={`rounded flex gap-2 items-center justify-center`}
                 >
                   <p>Capacidade efetiva:</p>
-                  {item.porcentagemCapacidadeEfetiva}%
+                  <LevelForEffetiveCapacity
+                    capacity={item.porcentagemCapacidadeEfetiva}
+                  />
                 </div>
                 <div className=' w-full flex items-center justify-around'>
                   <div className=' rounded flex gap-2 items-center justify-center text-red-600 font-bold'>
@@ -43,30 +46,6 @@ const BlocsAllCycle = ({ isAllCycle }: { isAllCycle: TypeDevicesCycle[] }) => {
           </div>
         ))}
       </div>
-
-      {/* {isAllCycle.map((item, index) => (
-        <div
-          key={index}
-          className=' flex items-center justify-between w-full gap-2'
-        >
-          <div className=' border w-1/4  h-20 rounded flex flex-col gap-2 items-center justify-center'>
-            <p>Capacidade efetiva</p>
-            {item.porcentagemCapacidadeEfetiva}%
-          </div>
-          <div className=' border w-1/4  h-20 rounded flex flex-col gap-2 items-center justify-center'>
-            <p>Tempo parado</p>
-            {item.porcentagemParado}%
-          </div>
-          <div className=' border w-1/4  h-20 rounded flex flex-col gap-2 items-center justify-center'>
-            <p>Tempo operando</p>
-            {item.porcentagemTrabalhando}%
-          </div>
-          <div className=' border w-1/4  h-20 rounded flex flex-col gap-2 items-center justify-center'>
-            <p>Quantidade de soldas</p>
-            {item.quantidadeDeSolda}
-          </div>
-        </div>
-      ))} */}
     </section>
   );
 };

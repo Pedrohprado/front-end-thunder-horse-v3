@@ -8,6 +8,11 @@ export interface TypeDayCycle {
   tempoTrabalhado: number;
 }
 
+export interface TypeCycleOfPrometeusToDay {
+  prometeus: string;
+  cycles: TypeDayCycle[];
+}
+
 export interface TypeAllCycle {
   porcentagemCapacidadeEfetiva: number;
   porcentagemParado: number;

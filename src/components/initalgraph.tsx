@@ -1,33 +1,28 @@
-import { useContext } from 'react';
 import { AreaChart, Area, XAxis, YAxis, Tooltip } from 'recharts';
-import { GlobalContext } from '../globalcontext/globalcontext';
+import { TypePerformancePrometeus } from '../types/TypeDevice';
 
-const InitialGraph = () => {
-  const { isLastWeldBead, isPrometeusCode } = useContext(GlobalContext);
-
+const InitialGraph = ({ device }: { device: TypePerformancePrometeus }) => {
   return (
-    <section className=' w-2/3 bg-slate-50 h-full rounded border flex flex-col justify-center gap-2 items-center p-2'>
-      {isLastWeldBead ? (
-        <>
-          <p className=' font-bold'>
-            Ultimo cordão de solda - {isPrometeusCode}
-          </p>
+    <section className=' w-full  h-full rounded shadow flex flex-col justify-center gap-2 items-start p-2'>
+      <h1>{device.prometeus}</h1>
+      <div className=' w-2/3 bg-slate-50 rounded border flex flex-col justify-center p-2'>
+        <h4 className=' text-xs font-bold '>Ultimo cordão de solda</h4>
+        <AreaChart
+          margin={{
+            top: 30,
+            bottom: 20,
+          }}
+          data={device.lastWelding}
+          width={630}
+          height={150}
+        >
+          <YAxis dataKey={'amperagem'} fontSize={12} />
+          <XAxis dataKey={'createdAt'} />
 
-          <AreaChart data={isLastWeldBead} width={600} height={200}>
-            <YAxis />
-            <XAxis dataKey={'createdAt'} hide />
-            <Tooltip />
-            <Area
-              type='natural'
-              dataKey={'amperagem'}
-              stroke='#001e4b'
-              fill='#001e4b9f'
-            />
-          </AreaChart>
-        </>
-      ) : (
-        <p>Selecione o dispositivo</p>
-      )}
+          <Area dataKey={'amperagem'} type='monotone' />
+          <Tooltip />
+        </AreaChart>
+      </div>
     </section>
   );
 };

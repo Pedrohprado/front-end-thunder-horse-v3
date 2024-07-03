@@ -8,10 +8,10 @@ export async function getAllDevices() {
   return data;
 }
 
-export async function getLastWeldBead(id: string) {
+export async function getLastWeldBead(ids: string) {
   const url: string = import.meta.env.VITE_BASE_URL_URL_API;
-  if (id) {
-    const response = await fetch(`${url}/lastweldbead/${id}`);
+  if (ids) {
+    const response = await fetch(`${url}/lastweldbead/${ids}`);
     const data = await response.json();
     return data;
   }

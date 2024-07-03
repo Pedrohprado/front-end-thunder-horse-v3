@@ -16,4 +16,16 @@ export interface TypeDevice {
 export interface TypeResumeDevice {
   prometeusCode: string;
   id: string;
+  setor?: number;
+}
+
+export interface TypePerformancePrometeus {
+  prometeus: string;
+  lastWelding: {
+    amperagem: number;
+    capture: string;
+    createdAt: Date | string;
+    id: string;
+    weldingId: string;
+  }[];
 }

@@ -5,33 +5,9 @@ import { IoHomeOutline, IoHardwareChipOutline } from 'react-icons/io5';
 import { VscGraph } from 'react-icons/vsc';
 import { TbDeviceComputerCamera } from 'react-icons/tb';
 import { Link, useLocation } from 'react-router-dom';
-import React, { useContext, useEffect, useState } from 'react';
-import { getAllDevices } from '../api/api';
-import { GlobalContext } from '../globalcontext/globalcontext';
-import { TypeDevice } from '../types/TypeDevice';
 
 const RightMenu = () => {
   const location = useLocation();
-  const [isDevices, setDevices] = useState<null | TypeDevice[]>(null);
-
-  const { setId, setPrometeusCode } = useContext(GlobalContext);
-
-  useEffect(() => {
-    async function fetchDatas() {
-      const devices: TypeDevice[] = await getAllDevices();
-      setDevices(devices);
-    }
-
-    fetchDatas();
-  }, []);
-
-  function handleChange(event: React.ChangeEvent<HTMLSelectElement>) {
-    const value = event.target.value;
-    const selectedDevice = JSON.parse(value) as TypeDevice;
-    console.log(selectedDevice);
-    setPrometeusCode(selectedDevice.prometeusCode);
-    setId(selectedDevice.id);
-  }
 
   const isActiveLink = (pathname: string) => {
     return pathname === location.pathname;
@@ -44,28 +20,6 @@ const RightMenu = () => {
           <LiaHorseHeadSolid size={30} />
           <h2 className=' text-lg font-bold'>.</h2>
         </div>
-
-        {isDevices && (
-          <select
-            name=''
-            id=''
-            className=' p-2 border rounded overflow-hidden text-sm font-medium'
-            onChange={handleChange}
-          >
-            {isDevices.map((device: TypeDevice) => (
-              <option
-                key={device.id}
-                value={JSON.stringify(device)}
-                disabled={
-                  device.prometeusCode === 'prometeus04' ||
-                  device.prometeusCode === 'prometeus05'
-                }
-              >
-                {device.prometeusCode}
-              </option>
-            ))}
-          </select>
-        )}
       </section>
 
       <section className=' list-none flex flex-col items-center w-full gap-2 py-1 '>

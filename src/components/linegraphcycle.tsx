@@ -136,7 +136,7 @@ const LineGraphCycle = ({ isDaysCycle }: Props) => {
                         </span>
                       </p>
                     </div>
-                    <div className=' w-full flex items-center justify-between'>
+                    <div className=' w-full flex items-center justify-around'>
                       <p className='text-sm flex  flex-col items-center gap-1 justify-center text-red-600'>
                         Parado
                         <span className=' font-bold'>
@@ -254,6 +254,7 @@ const LineGraphCycle = ({ isDaysCycle }: Props) => {
             <Legend />
 
             <Tooltip />
+
             <Bar
               dataKey={'prometeus01'}
               fill='#0a881d'
@@ -268,6 +269,18 @@ const LineGraphCycle = ({ isDaysCycle }: Props) => {
             />
             <Bar
               dataKey={'prometeus03'}
+              fill='#053e04'
+              activeBar={<Rectangle fill='pink' stroke='blue' />}
+              label={{ position: 'top' }}
+            />
+            <Bar
+              dataKey={'prometeus04'}
+              fill='#0a881d'
+              activeBar={<Rectangle fill='pink' stroke='blue' />}
+              label={{ position: 'top' }}
+            />
+            <Bar
+              dataKey={'prometeus05'}
               fill='#053e04'
               activeBar={<Rectangle fill='pink' stroke='blue' />}
               label={{ position: 'top' }}

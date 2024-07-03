@@ -1,29 +1,15 @@
 import { createContext, ReactNode, useEffect, useState } from 'react';
-import { TypeWeldBead } from '../types/typescontext';
-import { getLastWeldBead } from '../api/api';
 import { TypeStatusPrometeus } from '../types/TypePrometeusStatus';
 
 interface TypeGlobalContext {
-  setId: (isId: string | null) => void;
-  isPrometeusCode: string | null;
-  isId: string | null;
   isStatusPrometeusGlobal: TypeStatusPrometeus[] | null;
   setStatusPrometeusGlobal: (
     isStatusPrometeusGlobal: TypeStatusPrometeus[] | null
   ) => void;
-  isLastWeldBead: TypeWeldBead[] | null;
-  setLastWeldBead: (isLastWeldBead: TypeWeldBead[] | null) => void;
-  setPrometeusCode: (isPrometeusCode: string | null) => void;
 }
 
 const initialContext: TypeGlobalContext = {
-  setId: () => {},
-  isId: null,
-  isLastWeldBead: null,
-  isPrometeusCode: null,
   isStatusPrometeusGlobal: null,
-  setLastWeldBead: () => {},
-  setPrometeusCode: () => {},
   setStatusPrometeusGlobal: () => {},
 };
 
@@ -33,11 +19,6 @@ const Context: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [isStatusPrometeusGlobal, setStatusPrometeusGlobal] = useState<
     TypeStatusPrometeus[] | null
   >(null);
-  const [isId, setId] = useState<string | null>(null);
-  const [isPrometeusCode, setPrometeusCode] = useState<string | null>(isId);
-  const [isLastWeldBead, setLastWeldBead] = useState<TypeWeldBead[] | null>(
-    null
-  );
 
   const handleSocketMessage = (event: { data: string }) => {
     try {
@@ -62,38 +43,11 @@ const Context: React.FC<{ children: ReactNode }> = ({ children }) => {
     };
   }, []);
 
-  useEffect(() => {
-    async function getDatas() {
-      if (isId) {
-        const lastWeldBead = await getLastWeldBead(isId);
-        setLastWeldBead(lastWeldBead);
-      }
-    }
-
-    if (isId) {
-      getDatas();
-    }
-
-    const time = setInterval(() => {
-      getDatas();
-    }, 5000);
-
-    return () => {
-      clearInterval(time);
-    };
-  }, [isId]);
-
   return (
     <GlobalContext.Provider
       value={{
-        isId,
         isStatusPrometeusGlobal,
         setStatusPrometeusGlobal,
-        setId,
-        isLastWeldBead,
-        setLastWeldBead,
-        isPrometeusCode,
-        setPrometeusCode,
       }}
     >
       {children}

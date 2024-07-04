@@ -213,26 +213,13 @@ const LineGraphCycle = ({ isDaysCycle }: Props) => {
                       activeBar={<Rectangle fill='pink' stroke='blue' />}
                       label={{ position: 'top' }}
                     />
-                  </ComposedChart>
-                </div>
-                <div className=' col-span-3 w-full bg-slate-50 rounded border flex flex-col justify-center items-center p-2'>
-                  <h2>capacidade efetiva (%) </h2>
-
-                  <LineChart
-                    data={cycles.weldingCycle[0]}
-                    width={970}
-                    height={200}
-                  >
-                    <YAxis />
-                    <XAxis dataKey='data' />
-                    <Tooltip />
-
-                    <Line
+                    <Bar
                       dataKey={'porcentagemCapacidadeEfetiva'}
-                      type='monotoneX'
-                      stroke='#153bc5'
+                      fill='#0a3888'
+                      activeBar={<Rectangle fill='pink' stroke='blue' />}
+                      label={{ position: 'top' }}
                     />
-                  </LineChart>
+                  </ComposedChart>
                 </div>
               </div>
             )}
@@ -249,6 +236,9 @@ const LineGraphCycle = ({ isDaysCycle }: Props) => {
             data={isDataForGraph.porcentagemTrabalhado}
             width={970}
             height={200}
+            margin={{
+              top: 20,
+            }}
           >
             <XAxis dataKey='data' />
             <Legend />

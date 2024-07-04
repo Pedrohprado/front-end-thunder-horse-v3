@@ -45,6 +45,7 @@ const Home = () => {
   useEffect(() => {
     async function getPerformancePrometeus() {
       const data: TypePerformancePrometeus[] = await getLastWeldBead(isIds);
+      console.log(data);
       if (data)
         data.map((item) => {
           item.lastWelding.map(
@@ -54,7 +55,6 @@ const Home = () => {
               ).toLocaleTimeString('pt-br'))
           );
         });
-
       setWelding(data);
     }
 
@@ -72,9 +72,11 @@ const Home = () => {
 
       console.log(cycles);
     }
+
+    getPerformancePrometeus();
     const time = setInterval(() => {
       getPerformancePrometeus();
-    }, 2000);
+    }, 20000);
 
     return () => clearInterval(time);
   }, [isIds]);
@@ -82,15 +84,18 @@ const Home = () => {
   //devices error, now i need answer how can i get one informations
   return (
     <main className=' w-full pl-[20%]'>
-      <section className=' grid grid-cols-2 px-8 py-4 gap-2'>
-        <section className=' w-2/3 rounded flex flex-col gap-2 p-2'>
+      <h1 className=' pt-4 pl-8 font-medium'>
+        Processo de soldagem atual - {new Date().toLocaleDateString()}
+      </h1>
+      <section className=' grid grid-cols-3 px-8 py-4 '>
+        <section className='  col-span-2 flex flex-col gap-2 py-2'>
           {isWelding
             ? isWelding.map((device, index) => (
                 <InitialGraph device={device} key={index} />
               ))
             : null}
         </section>
-        <section className=' w-1/3 flex flex-col gap-2 p-2'>
+        <section className='  flex flex-col gap-2 py-2'>
           {isCycleOfPrometeusToDay
             ? isCycleOfPrometeusToDay.map((device, index) => (
                 <GraphCycleToDay isCycleOfPrometeusToDay={device} key={index} />

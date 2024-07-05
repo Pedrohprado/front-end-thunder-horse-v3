@@ -1,8 +1,5 @@
 import {
-  LineChart,
-  Line,
   XAxis,
-  YAxis,
   Tooltip,
   BarChart,
   Bar,
@@ -276,26 +273,6 @@ const LineGraphCycle = ({ isDaysCycle }: Props) => {
               label={{ position: 'top' }}
             />
           </BarChart>
-        ) : null}
-      </div>
-
-      <h2 className=' font-bold mb-2 mt-5'>
-        Porcentagem diária - tempo parado - (8h: 56min)
-      </h2>
-      <div className='w-full bg-slate-50 rounded border flex flex-col justify-center p-4'>
-        {isDataForGraph ? (
-          <LineChart
-            data={isDataForGraph.porcentagemParado}
-            width={970}
-            height={200}
-          >
-            <YAxis />
-            <XAxis dataKey='data' />
-            <Tooltip />
-            <Line dataKey={'prometeus01'} type='monotone' stroke='#88100a' />
-            <Line dataKey={'prometeus02'} type='monotone' stroke='#c51515' />
-            <Line dataKey={'prometeus03'} type='monotone' stroke='#3e0404' />
-          </LineChart>
         ) : null}
       </div>
     </section>

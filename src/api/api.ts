@@ -8,6 +8,14 @@ export async function getAllDevices() {
   return data;
 }
 
+export async function getPriceGas(ids: string, from: string, to: string) {
+  if (ids) {
+    const response = await fetch(`${url}/gasconsumption/${ids}/${from}/${to}`);
+    const data = await response.json();
+    return data;
+  }
+}
+
 export async function getCycleForDay(ids: string) {
   if (ids) {
     const response = await fetch(`${url}/lastcycle/${ids}`);

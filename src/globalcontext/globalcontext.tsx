@@ -23,6 +23,7 @@ const Context: React.FC<{ children: ReactNode }> = ({ children }) => {
   const handleSocketMessage = (event: { data: string }) => {
     try {
       const data: TypeStatusPrometeus[] = JSON.parse(event.data);
+      console.log(data)
       setStatusPrometeusGlobal(data);
     } catch (error) {
       console.log(error);
@@ -30,7 +31,8 @@ const Context: React.FC<{ children: ReactNode }> = ({ children }) => {
   };
 
   useEffect(() => {
-    const socket = new WebSocket('ws://172.31.98.228:8080');
+    const urlWs:string = import.meta.env.VITE_BASE_URL_WS_STATUS
+    const socket = new WebSocket(urlWs);
 
     socket.addEventListener('open', () => {
       socket.send('conexão estalecida');
@@ -38,9 +40,9 @@ const Context: React.FC<{ children: ReactNode }> = ({ children }) => {
 
     socket.addEventListener('message', handleSocketMessage);
 
-    return () => {
-      socket.close();
-    };
+    // return () => {
+    //   socket.close();
+    // };
   }, []);
 
   return (

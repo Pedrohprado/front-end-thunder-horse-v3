@@ -88,8 +88,8 @@ const CiclyOfService = () => {
           item.values.map(
             (value) =>
               (value.data = new Date(value.data)
-                .toLocaleDateString()
-                .slice(0, 5))
+                .toISOString()
+                .slice(0, 10))
           )
         );
         setValuesOfGas(valuesGas);

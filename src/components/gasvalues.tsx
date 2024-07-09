@@ -17,7 +17,7 @@ const GasValues = ({ isValuesOfGas }: { isValuesOfGas: TypeValuesOfGas[] }) => {
                 top: 30,
                 bottom: 20,
                 right: 35,
-                left: 35,
+                left: 45,
               }}
               width={700}
               height={150}

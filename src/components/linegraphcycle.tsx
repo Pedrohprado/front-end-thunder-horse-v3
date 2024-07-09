@@ -241,7 +241,6 @@ const LineGraphCycle = ({ isDaysCycle }: Props) => {
             <Legend />
 
             <Tooltip />
-
             <Bar
               dataKey={'prometeus01'}
               fill='#0a881d'

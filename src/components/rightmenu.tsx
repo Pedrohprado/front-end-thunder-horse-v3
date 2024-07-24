@@ -15,11 +15,14 @@ const RightMenu = () => {
 
   return (
     <menu className=' fixed w-[20%] h-full py-4 px-4 flex flex-col items-center justify-between transition opacity-0 translate-x-[-100px] animate-animationleft'>
-      <section className='flex flex-col gap-10 w-full'>
+      <section className='flex flex-col items-center w-full'>
         <div className='flex items-center gap-2 justify-center'>
           <LiaHorseHeadSolid size={30} />
-          <h2 className=' text-lg font-bold'>.</h2>
+          <h2 className=' text-lg font-bold'>Thunder Horse</h2>
         </div>
+      <p className='  text-sm'>
+      pedertractor&tractorcomponents
+      </p>
       </section>
 
       <section className=' list-none flex flex-col items-center w-full gap-2 py-1 '>

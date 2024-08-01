@@ -1,10 +1,6 @@
 import { useEffect, useState } from 'react';
 import InitialGraph from '../components/initalgraph';
-import {
-  TypeDevice,
-  TypePerformancePrometeus,
-  TypeResumeDevice,
-} from '../types/TypeDevice';
+import { TypeDevice, TypePerformancePrometeus } from '../types/TypeDevice';
 import { getAllDevices, getCycleForDay, getLastWeldBead } from '../api/api';
 import { TypeCycleOfPrometeusToDay } from '../types/TypeCycle';
 import GraphCycleToDay from '../components/graphCycleToDay';
@@ -22,20 +18,9 @@ const Home = () => {
   useEffect(() => {
     async function getInfoDevices() {
       const devices: TypeDevice[] = await getAllDevices();
-      const arr: TypeResumeDevice[] = [];
-      const arrayId: string[] = [];
 
-      devices.map((item) => {
-        arr.push({
-          id: item.id,
-          prometeusCode: item.prometeusCode,
-          setor: item.setor,
-        });
+      const ids = devices.map((item) => item.id).join(',');
 
-        arrayId.push(item.id);
-      });
-
-      const ids: string = arrayId.join(',');
       setIds(ids);
     }
 
@@ -45,16 +30,7 @@ const Home = () => {
   useEffect(() => {
     async function getPerformancePrometeus() {
       const data: TypePerformancePrometeus[] = await getLastWeldBead(isIds);
-      console.log(data);
-      if (data)
-        data.map((item) => {
-          item.lastWelding.map(
-            (subItems) =>
-              (subItems.createdAt = new Date(
-                subItems.createdAt
-              ).toLocaleTimeString('pt-br'))
-          );
-        });
+
       setWelding(data);
     }
 

@@ -5,6 +5,10 @@ import { GlobalContext } from '../globalcontext/globalcontext';
 
 const InitialGraph = ({ device }: { device: TypePerformancePrometeus }) => {
   const { isStatusPrometeusGlobal } = useContext(GlobalContext);
+
+  const formatedDate = (date: string) =>
+    new Date(date).toLocaleTimeString('pt-br');
+
   return (
     <div className=' rounded rounded-r-none w-full flex flex-col items-center justify-center bg-slate-100 p-2'>
       <h2 className=' text-sm font-medium'>
@@ -20,7 +24,7 @@ const InitialGraph = ({ device }: { device: TypePerformancePrometeus }) => {
         height={150}
       >
         <YAxis dataKey={'amperagem'} fontSize={12} />
-        <XAxis dataKey={'createdAt'} />
+        <XAxis dataKey={'createdAt'} tickFormatter={formatedDate} />
 
         <Area dataKey='amperagem' type='monotone' />
         <Tooltip />
